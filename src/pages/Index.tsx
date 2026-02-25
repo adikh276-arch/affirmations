@@ -1,12 +1,35 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import React, { useState } from "react";
+import BeforeYouBegin from "@/components/BeforeYouBegin";
+import FeelingSelector from "@/components/FeelingSelector";
+import AffirmationScreen from "@/components/AffirmationScreen";
+
+type Screen = "intro" | "feelings" | "affirmation";
 
 const Index = () => {
+  const [screen, setScreen] = useState<Screen>("intro");
+  const [selectedFeeling, setSelectedFeeling] = useState<string>("");
+
+  const handleBegin = () => setScreen("feelings");
+
+  const handleSelectFeeling = (feelingId: string) => {
+    setSelectedFeeling(feelingId);
+    setScreen("affirmation");
+  };
+
+  const handleChooseAnother = () => setScreen("feelings");
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      {screen === "intro" && <BeforeYouBegin onBegin={handleBegin} />}
+      {screen === "feelings" && (
+        <FeelingSelector onSelect={handleSelectFeeling} />
+      )}
+      {screen === "affirmation" && (
+        <AffirmationScreen
+          feelingId={selectedFeeling}
+          onChooseAnother={handleChooseAnother}
+        />
+      )}
     </div>
   );
 };
