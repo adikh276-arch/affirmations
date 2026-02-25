@@ -2,15 +2,27 @@ import React, { useState, useEffect } from "react";
 import { feelings } from "@/data/affirmations";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+const pastelColors = [
+  "bg-pastel-peach",
+  "bg-pastel-lavender",
+  "bg-pastel-mint",
+  "bg-pastel-sky",
+  "bg-pastel-rose",
+  "bg-pastel-butter",
+];
+
 interface AffirmationScreenProps {
   feelingId: string;
+  colorIndex: number;
   onChooseAnother: () => void;
 }
 
 const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
   feelingId,
+  colorIndex,
   onChooseAnother,
 }) => {
+  const pastelColor = pastelColors[colorIndex % pastelColors.length];
   const feeling = feelings.find((f) => f.id === feelingId);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [animKey, setAnimKey] = useState(0);
@@ -55,7 +67,7 @@ const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
         <div className="flex flex-1 flex-col items-center justify-center py-10">
           <div
             key={animKey}
-            className="affirmation-fade-in w-full rounded-2xl bg-card p-8 shadow-md"
+            className={`affirmation-fade-in w-full rounded-2xl ${pastelColor} p-8 shadow-md`}
           >
             <p className="text-center font-serif text-xl leading-relaxed text-foreground">
               {feeling.affirmations[currentIndex]}

@@ -8,11 +8,13 @@ type Screen = "intro" | "feelings" | "affirmation";
 const Index = () => {
   const [screen, setScreen] = useState<Screen>("intro");
   const [selectedFeeling, setSelectedFeeling] = useState<string>("");
+  const [selectedColorIndex, setSelectedColorIndex] = useState<number>(0);
 
   const handleBegin = () => setScreen("feelings");
 
-  const handleSelectFeeling = (feelingId: string) => {
+  const handleSelectFeeling = (feelingId: string, colorIndex: number) => {
     setSelectedFeeling(feelingId);
+    setSelectedColorIndex(colorIndex);
     setScreen("affirmation");
   };
 
@@ -27,6 +29,7 @@ const Index = () => {
       {screen === "affirmation" && (
         <AffirmationScreen
           feelingId={selectedFeeling}
+          colorIndex={selectedColorIndex}
           onChooseAnother={handleChooseAnother}
         />
       )}

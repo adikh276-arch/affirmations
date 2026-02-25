@@ -2,7 +2,7 @@ import React from "react";
 import { feelings } from "@/data/affirmations";
 
 interface FeelingSelectorProps {
-  onSelect: (feelingId: string) => void;
+  onSelect: (feelingId: string, colorIndex: number) => void;
 }
 
 const pastelColors = [
@@ -37,7 +37,7 @@ const FeelingSelector: React.FC<FeelingSelectorProps> = ({ onSelect }) => {
           {feelings.map((feeling, index) => (
             <button
               key={feeling.id}
-              onClick={() => onSelect(feeling.id)}
+              onClick={() => onSelect(feeling.id, index % pastelColors.length)}
               className={`w-full rounded-2xl border border-border/50 px-5 py-4 text-left text-[15px] font-medium text-foreground shadow-sm transition-all duration-200 hover:scale-[1.02] hover:shadow-md active:scale-[0.98] ${pastelColors[index % pastelColors.length]}`}
             >
               {feeling.label}
