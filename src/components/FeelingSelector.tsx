@@ -5,6 +5,15 @@ interface FeelingSelectorProps {
   onSelect: (feelingId: string) => void;
 }
 
+const pastelColors = [
+  "bg-pastel-peach",
+  "bg-pastel-lavender",
+  "bg-pastel-mint",
+  "bg-pastel-sky",
+  "bg-pastel-rose",
+  "bg-pastel-butter",
+];
+
 const FeelingSelector: React.FC<FeelingSelectorProps> = ({ onSelect }) => {
   return (
     <div className="flex min-h-screen flex-col px-6 py-12">
@@ -25,11 +34,11 @@ const FeelingSelector: React.FC<FeelingSelectorProps> = ({ onSelect }) => {
         </div>
 
         <div className="space-y-3 pt-2">
-          {feelings.map((feeling) => (
+          {feelings.map((feeling, index) => (
             <button
               key={feeling.id}
               onClick={() => onSelect(feeling.id)}
-              className="w-full rounded-lg border border-border bg-card px-5 py-4 text-left text-[15px] font-normal text-card-foreground shadow-sm transition-all duration-200 hover:border-primary/40 hover:bg-accent hover:shadow-md active:scale-[0.98]"
+              className={`w-full rounded-2xl border border-border/50 px-5 py-4 text-left text-[15px] font-medium text-foreground shadow-sm transition-all duration-200 hover:scale-[1.02] hover:shadow-md active:scale-[0.98] ${pastelColors[index % pastelColors.length]}`}
             >
               {feeling.label}
             </button>
