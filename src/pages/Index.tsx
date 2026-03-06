@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import BeforeYouBegin from "@/components/BeforeYouBegin";
 import FeelingSelector from "@/components/FeelingSelector";
 import AffirmationScreen from "@/components/AffirmationScreen";
+import { LanguageSelector } from "@/components/LanguageSelector";
 
 type Screen = "intro" | "feelings" | "affirmation";
 
@@ -21,7 +22,8 @@ const Index = () => {
   const handleChooseAnother = () => setScreen("feelings");
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      <LanguageSelector />
       {screen === "intro" && <BeforeYouBegin onBegin={handleBegin} />}
       {screen === "feelings" && (
         <FeelingSelector onSelect={handleSelectFeeling} />

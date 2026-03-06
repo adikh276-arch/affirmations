@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { feelings } from "@/data/affirmations";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const pastelColors = [
   "bg-pastel-peach",
@@ -22,6 +23,7 @@ const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
   colorIndex,
   onChooseAnother,
 }) => {
+  const { t } = useTranslation();
   const pastelColor = pastelColors[colorIndex % pastelColors.length];
   const feeling = feelings.find((f) => f.id === feelingId);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -59,7 +61,7 @@ const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
         <div className="text-center">
           <span className="mb-4 inline-block text-3xl">🌿</span>
           <h1 className="font-serif text-2xl font-medium tracking-tight text-foreground">
-            {feeling.label}
+            {t(`feelings.${feelingId}.label`)}
           </h1>
         </div>
 
@@ -70,7 +72,7 @@ const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
             className={`affirmation-fade-in w-full rounded-2xl ${pastelColor} p-8 shadow-md`}
           >
             <p className="text-center font-serif text-xl leading-relaxed text-foreground">
-              {feeling.affirmations[currentIndex]}
+              {t(`feelings.${feelingId}.affirmations.${currentIndex}`)}
             </p>
           </div>
 
@@ -79,11 +81,10 @@ const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
             {feeling.affirmations.map((_, i) => (
               <span
                 key={i}
-                className={`block h-2 w-2 rounded-full transition-all duration-300 ${
-                  i === currentIndex
+                className={`block h-2 w-2 rounded-full transition-all duration-300 ${i === currentIndex
                     ? "scale-125 bg-primary"
                     : "bg-border"
-                }`}
+                  }`}
               />
             ))}
           </div>
@@ -122,14 +123,14 @@ const AffirmationScreen: React.FC<AffirmationScreenProps> = ({
               }}
               className="w-full rounded-lg bg-primary py-4 text-base font-medium text-primary-foreground shadow-sm transition-all duration-300 hover:shadow-md active:scale-[0.98]"
             >
-              Read Again
+              {t("common.readAgain")}
             </button>
           )}
           <button
             onClick={onChooseAnother}
             className="w-full py-3 text-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
           >
-            Choose Another Feeling
+            {t("common.chooseAnother")}
           </button>
         </div>
       </div>
